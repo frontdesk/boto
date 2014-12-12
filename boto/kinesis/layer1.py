@@ -493,6 +493,12 @@ class KinesisConnection(AWSQueryConnection):
         }
         return self.make_request(action='MergeShards',
                                  body=json.dumps(params))
+    def put_records(self, stream_name, records):
+        params = {
+            'Records': records,
+            'StreamName': stream_name
+        }
+        return self.make_request(action='PutRecords', body=json.dumps(params))
 
     def put_record(self, stream_name, data, partition_key,
                    explicit_hash_key=None,
